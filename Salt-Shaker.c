@@ -46,10 +46,9 @@ int main(){
             {       // OMP initialization
                                                              // initializing the number of grains that passed in this shake
 
-                # pragma omp for                                            // OMP for loop
+                # pragma omp for reduction(+:passed)                                           // OMP for loop
                     for(int grain=0; grain < salt; grain++)                 // claculating for each grain rather it passed or not
                         if(((double)(rand_r(&seed)))/(double)RAND_MAX<p)
-                            #pragma omp atomic                                          // atomicly calculating the following so we wont get a wrong input
                                 passed++;
 
                 salt = SALT_INIT - passed;                                         // claculating the number of salt grains that did not make it through to expiriment again
