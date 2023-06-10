@@ -47,16 +47,18 @@ int main(){
                                                              // initializing the number of grains that passed in this shake
 
                 # pragma omp for reduction(+:passed)                                           // OMP for loop
-                    for(int grain=0; grain < salt; grain++)                 // claculating for each grain rather it passed or not
-                        if((double)((rand_r(&seed))%30000)/30000<p)
-                                passed++;
-
+                    for(int grain=0; grain < salt; grain++) {                 // claculating for each grain rather it passed or not
+                        printf("prob = %lf\n", (double)((rand_r(&seed))%10000)/10000);
+                        if ((double) ((rand_r(&seed)) % 10000) / 10000 < p)
+                            passed++;
+                    }
                 #pragma omp barrier
                     salt = SALT_INIT - passed;                                         // claculating the number of salt grains that did not make it through to expiriment again
 
             }
 
         }
+
         printf("p = %lf\n",p);
         printf("evals run = %lf\n", passed/SALT_INIT);
         e_vals[run] = passed/SALT_INIT;                                      // calculating the value of e^-1 for the current expiriment to later on avg
