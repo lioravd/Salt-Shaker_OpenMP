@@ -25,7 +25,7 @@ double calc_mean(double vals[], int len){
 void print_results(double print_val, double print_time){
     printf("\nUSING THE \"SALT SHAKER\" METHOD WITH %d THREADS AND %d ITERATIONS:\n", (int)RUNS, (int)PROC_NUM);
     printf("The calculated average value of e is:        %lf\n", print_val);
-    printf("The absolute value of e is:                  %lf, and the difference is: %lf \n", exp(1), abs(exp(1)-print_val));
+    printf("The absolute value of e is:                  %lf, and the difference is: %lf \n", exp(1), exp(1)-print_val);
     printf("The average execution time of the program:   %lf seconds\n\n", print_time);
     printf("The total execution time of the program:   %lf seconds\n\n", print_time*RUNS);
 }
@@ -37,23 +37,23 @@ int main(){
     unsigned int salt,seed, salt_init = SALT_INIT;
     int passed;
 
-    start_time = omp_get_wtime();                                           // starting simulation                         
-    for(int run=0; run < RUNS; run++){                                      // repiting the expiriment several times to avrage the results for better accuracy
+    start_time = omp_get_wtime();                                                               // starting simulation
+    for(int run=0; run < RUNS; run++){                                                          // repeating the experiment several times to avrage the results for better accuracy
         salt = SALT_INIT;
-        passed = 0;                                                      // initializing the number of salt grains at the begining of the expiriment
-        for(int shake=0; shake<N; shake++){                                 // shaking N times (each time only the remaining grains)         
-            seed = omp_get_wtime()+rand();                           // initializing a different seed for each shake
+        passed = 0;                                                                             // initializing the number of salt grains at the begining of the expiriment
+        for(int shake=0; shake<N; shake++){                                                     // shaking N times (each time only the remaining grains)
+            seed = omp_get_wtime()+rand();                                                      // initializing a different seed for each shake
             #pragma omp parallel num_threads(PROC_NUM) shared (passed)
             {       // OMP initialization
-                                                             // initializing the number of grains that passed in this shake
+                                                                                                // initializing the number of grains that passed in this shake
 
                 # pragma omp for reduction(+:passed)                                           // OMP for loop
-                    for(int grain=0; grain < salt; grain++) {                 // claculating for each grain rather it passed or not
+                    for(int grain=0; grain < salt; grain++) {                                  // calculating for each grain rather it passed or not
                         if ((double) ((rand_r(&seed)) % RAND_MAX) / RAND_MAX < p)
                             passed++;
                     }
                 #pragma omp barrier
-                    salt = SALT_INIT - passed;                                         // claculating the number of salt grains that did not make it through to expiriment again
+                    salt = SALT_INIT - passed;                                                  // calculating the number of salt grains that did not make it through to expiriment again
 
             }
 
@@ -64,8 +64,8 @@ int main(){
         e_vals[run] = salt/SALT_INIT;                                      // calculating the value of e^-1 for the current expiriment to later on avg
     }
 
-    e_val = 1/calc_mean(e_vals, RUNS);                                      // avraging all results
-    end_time = omp_get_wtime();                                             // getting the end time of all expiriments
+    e_val = 1/calc_mean(e_vals, RUNS);                                      // avaraging all results
+    end_time = omp_get_wtime();                                             // getting the end time of all experiments
     avg_time = (end_time - start_time)/RUNS;                                 // deviding by numver of runs to get avg
     print_results(e_val, avg_time);                                          // printing the results
        
