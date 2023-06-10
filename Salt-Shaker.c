@@ -33,21 +33,22 @@ int main(){
     
     double e_vals[RUNS], e_val;
     double start_time, end_time, avg_time, p =(double)(1/N);
-    unsigned int salt;
+    unsigned int salt,seed;
     int passed;
 
     start_time = omp_get_wtime();                                           // starting simulation                         
     for(int run=0; run < RUNS; run++){                                      // repiting the expiriment several times to avrage the results for better accuracy
         salt = SALT_INIT;                                                   // initializing the number of salt grains at the begining of the expiriment 
         for(int shake=0; shake<N; shake++){                                 // shaking N times (each time only the remaining grains)         
-            unsigned int seed =  omp_get_wtime();                           // initializing a different seed for each shake
+            seed = omp_get_wtime();                           // initializing a different seed for each shake
+            srand(seed);
             #pragma omp parallel num_threads(PROC_NUM) shared (salt)
             {       // OMP initialization
                 passed = 0;                                                 // initializing the number of grains that passed in this shake
 
                 # pragma omp for                                            // OMP for loop
                     for(int grain=0; grain < salt; grain++)                 // claculating for each grain rather it passed or not
-                        if(((double)(rand_r(&seed)))/(double)RAND_MAX<p)
+                        if(((double)(rand()))/(double)RAND_MAX<p)
                             passed++;    
 
                 #pragma omp atomic                                          // atomicly calculating the following so we wont get a wrong input
