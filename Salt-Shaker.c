@@ -11,7 +11,7 @@ Lior Avadyayev: 206087611*/
                 
 #define SALT_INIT 1e5           
 #define N 1e4                     
-#define RUNS 128   
+#define RUNS 3
 #define PROC_NUM 2  
                 
 double calc_mean(double vals[], int len){
