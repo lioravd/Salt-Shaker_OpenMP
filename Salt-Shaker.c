@@ -38,21 +38,21 @@ int main(){
 
     start_time = omp_get_wtime();                                           // starting simulation                         
     for(int run=0; run < RUNS; run++){                                      // repiting the expiriment several times to avrage the results for better accuracy
-        salt = SALT_INIT;                                                   // initializing the number of salt grains at the begining of the expiriment 
+        salt = SALT_INIT;
+        passed = 0;                                                      // initializing the number of salt grains at the begining of the expiriment
         for(int shake=0; shake<N; shake++){                                 // shaking N times (each time only the remaining grains)         
             seed = omp_get_wtime();                           // initializing a different seed for each shake
-            srand(seed);
             #pragma omp parallel num_threads(PROC_NUM) shared (salt)
             {       // OMP initialization
-                passed = 0;                                                 // initializing the number of grains that passed in this shake
+                                                             // initializing the number of grains that passed in this shake
 
                 # pragma omp for                                            // OMP for loop
                     for(int grain=0; grain < salt; grain++)                 // claculating for each grain rather it passed or not
-                        if(((double)(rand()))/(double)RAND_MAX<p)
+                        if(((double)(rand_r(&seed)))/(double)RAND_MAX<p)
                             passed++;    
 
                 #pragma omp atomic                                          // atomicly calculating the following so we wont get a wrong input
-                    salt -= passed;                                         // claculating the number of salt grains that did not make it through to expiriment again
+                    salt =SALT_INIT - passed;                                         // claculating the number of salt grains that did not make it through to expiriment again
             }
         }
         printf("p = %lf\n",p);
