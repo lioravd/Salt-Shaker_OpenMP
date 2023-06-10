@@ -33,7 +33,7 @@ int main(){
     
     double e_vals[RUNS], e_val;
     double start_time, end_time, avg_time, p =(double)(1/N);
-    unsigned int salt,seed;
+    unsigned int salt,seed, salt_init = SALT_INIT;
     int passed;
 
     start_time = omp_get_wtime();                                           // starting simulation                         
@@ -52,7 +52,7 @@ int main(){
                             passed++;    
 
                 #pragma omp atomic                                          // atomicly calculating the following so we wont get a wrong input
-                    salt = 1e5 - passed;                                         // claculating the number of salt grains that did not make it through to expiriment again
+                    salt = salt_init - passed;                                         // claculating the number of salt grains that did not make it through to expiriment again
             }
         }
         printf("p = %lf\n",p);
