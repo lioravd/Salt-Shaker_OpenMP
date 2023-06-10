@@ -11,7 +11,7 @@ Lior Avadyayev: 206087611*/
                 
 #define SALT_INIT 1e5           
 #define N 1e4                     
-#define RUNS 128
+#define RUNS 5
 #define PROC_NUM 8
                 
 double calc_mean(double vals[], int len){
@@ -55,8 +55,8 @@ int main(){
             salt = SALT_INIT - passed;                                         // claculating the number of salt grains that did not make it through to expiriment again
 
         }
-        //printf("p = %lf\n",p);
-        //printf("evals run = %lf\n", passed/SALT_INIT);
+        printf("p = %lf\n",p);
+        printf("evals run = %lf\n", passed/SALT_INIT);
         e_vals[run] = passed/SALT_INIT;                                      // calculating the value of e^-1 for the current expiriment to later on avg
     }
 
