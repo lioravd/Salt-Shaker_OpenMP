@@ -41,14 +41,14 @@ int main(){
         salt = SALT_INIT;
         passed = 0;                                                      // initializing the number of salt grains at the begining of the expiriment
         for(int shake=0; shake<N; shake++){                                 // shaking N times (each time only the remaining grains)         
-            seed = omp_get_wtime();                           // initializing a different seed for each shake
+            seed = omp_get_wtime()+rand();                           // initializing a different seed for each shake
             #pragma omp parallel num_threads(PROC_NUM) shared (passed)
             {       // OMP initialization
                                                              // initializing the number of grains that passed in this shake
 
                 # pragma omp for reduction(+:passed)                                           // OMP for loop
                     for(int grain=0; grain < salt; grain++) {                 // claculating for each grain rather it passed or not
-                        printf("prob = %lf\n", (double)((rand_r(&seed))%10000)/10000);
+//                        printf("prob = %lf\n", (double)((rand_r(&seed))%10000)/10000);
                         if ((double) ((rand_r(&seed)) % 10000) / 10000 < p)
                             passed++;
                     }
