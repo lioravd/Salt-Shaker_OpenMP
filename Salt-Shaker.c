@@ -49,7 +49,7 @@ int main(){
                 # pragma omp for reduction(+:passed)                                           // OMP for loop
                     for(int grain=0; grain < salt; grain++) {                 // claculating for each grain rather it passed or not
 //                        printf("prob = %lf\n", (double)((rand_r(&seed))%10000)/10000);
-                        if ((double) ((rand_r(&seed)) % 10000) / 10000 < p)
+                        if ((double) ((rand_r(&seed)) % 30000) / 30000 < p)
                             passed++;
                     }
                 #pragma omp barrier
