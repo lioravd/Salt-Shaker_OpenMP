@@ -12,7 +12,7 @@ Lior Avadyayev: 206087611*/
 #define SALT_INIT 1e5           
 #define N 1e4                     
 #define RUNS 128
-#define PROC_NUM 2
+#define PROC_NUM 6
                 
 double calc_mean(double vals[], int len){
     double avg = 0;
@@ -43,10 +43,8 @@ int main(){
         passed = 0;                                                                             // initializing the number of salt grains at the begining of the expiriment
         for(int shake=0; shake<N; shake++){                                                     // shaking N times (each time only the remaining grains)
             seed = omp_get_wtime()+rand();                                                      // initializing a different seed for each shake
-            #pragma omp parallel num_threads(PROC_NUM) shared (passed)
-            {       // OMP initialization
-                                                                                                // initializing the number of grains that passed in this shake
-
+            #pragma omp parallel num_threads(PROC_NUM) shared (passed)                          // OMP initialization
+            {
                 # pragma omp for reduction(+:passed)                                           // OMP for loop
                     for(int grain=0; grain < salt; grain++) {                                  // calculating for each grain rather it passed or not
                         if ((double) ((rand_r(&seed)) % RAND_MAX) / RAND_MAX < p)
