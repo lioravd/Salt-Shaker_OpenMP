@@ -52,9 +52,9 @@ int main(){
                         if ((double) ((rand_r(&seed)) % RAND_MAX) / RAND_MAX < p)
                             passed++;
                     }
-                salt = SALT_INIT - passed;                                                  // calculating the number of salt grains that did not make it through to expiriment again
 
             }
+            salt = SALT_INIT - passed;                                                  // calculating the number of salt grains that did not make it through to expiriment again
 
         }
 
