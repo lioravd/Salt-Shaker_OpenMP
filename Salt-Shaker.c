@@ -25,7 +25,7 @@ double calc_mean(double vals[], int len){
 void print_results(double print_val, double print_time){
     printf("\nUSING THE \"SALT SHAKER\" METHOD WITH %d THREADS AND %d ITERATIONS:\n", (int)RUNS, (int)PROC_NUM);
     printf("The calculated average value of e is:        %lf\n", print_val);
-    printf("The absolute value of e is:                  %lf, and the difference is: %lf \n", exp(1), exp(1)-print_val);
+    printf("The absolute value of e is:                  %lf, and the difference is: %lf \n", exp(1), print_val-exp(1));
     printf("The average execution time of the program:   %lf seconds\n\n", print_time);
     printf("The total execution time of the program:   %lf seconds\n\n", print_time*RUNS);
 }
@@ -61,12 +61,12 @@ int main(){
 
 //        printf("p = %lf\n",p);
 //        printf("evals run = %lf\n", salt/SALT_INIT);
-        e_vals[run] = salt/SALT_INIT;                                      // calculating the value of e^-1 for the current expiriment to later on avg
+        e_vals[run] = salt/SALT_INIT;                                      // calculating the value of e^-1 for the current experiment to later on avg
     }
 
-    e_val = 1/calc_mean(e_vals, RUNS);                                      // avaraging all results
+    e_val = 1/calc_mean(e_vals, RUNS);                                      // averaging all results
     end_time = omp_get_wtime();                                             // getting the end time of all experiments
-    avg_time = (end_time - start_time)/RUNS;                                 // deviding by numver of runs to get avg
+    avg_time = (end_time - start_time)/RUNS;                                 // dividing by number of runs to get avg
     print_results(e_val, avg_time);                                          // printing the results
        
     return 0;
