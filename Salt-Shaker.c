@@ -11,8 +11,8 @@ Lior Avadyayev: 206087611*/
                 
 #define SALT_INIT 1e5           
 #define N 1e4                     
-#define RUNS 5
-#define PROC_NUM 8
+#define RUNS 3
+#define PROC_NUM 1
                 
 double calc_mean(double vals[], int len){
     double avg = 0;
@@ -52,7 +52,6 @@ int main(){
                         if ((double) ((rand_r(&seed)) % RAND_MAX) / RAND_MAX < p)
                             passed++;
                     }
-//                #pragma omp barrier
                 salt = SALT_INIT - passed;                                                  // calculating the number of salt grains that did not make it through to expiriment again
 
             }
