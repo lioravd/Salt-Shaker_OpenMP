@@ -23,7 +23,7 @@ double calc_mean(double vals[], int len){
 }
 
 void print_results(double print_val, double print_time){
-    printf("\nUSING THE \"SALT SHAKER\" METHOD WITH %d THREADS AND %d ITERATIONS:\n", (int)RUNS, (int)PROC_NUM);
+    printf("\nUSING THE \"SALT SHAKER\" METHOD WITH %d THREADS AND %d ITERATIONS:\n",(int)PROC_NUM, (int)RUNS);
     printf("The calculated average value of e is:        %lf\n", print_val);
     printf("The absolute value of e is:                  %lf, and the difference is: %lf \n", exp(1), print_val-exp(1));
     printf("The average execution time of the program:   %lf seconds\n\n", print_time);
