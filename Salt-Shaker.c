@@ -41,7 +41,8 @@ int main(){
         salt = SALT_INIT;                                                   // initializing the number of salt grains at the begining of the expiriment 
         for(int shake=0; shake<N; shake++){                                 // shaking N times (each time only the remaining grains)         
             unsigned int seed =  omp_get_wtime();                           // initializing a different seed for each shake
-            #pragma omp parallel num_threads(PROC_NUM) shared (salt){       // OMP initialization
+            #pragma omp parallel num_threads(PROC_NUM) shared (salt)
+            {       // OMP initialization
                 passed = 0;                                                 // initializing the number of grains that passed in this shake
 
                 # pragma omp for                                            // OMP for loop
@@ -53,13 +54,13 @@ int main(){
                     salt -= passed;                                         // claculating the number of salt grains that did not make it through to expiriment again
             }
         }
-        e_vals[run] = passed/SALT_INIT                                      // calculating the value of e^-1 for the current expiriment to later on avg
+        e_vals[run] = passed/SALT_INIT;                                      // calculating the value of e^-1 for the current expiriment to later on avg
     }
 
     e_val = 1/calc_mean(e_vals, RUNS);                                      // avraging all results
     end_time = omp_get_wtime();                                             // getting the end time of all expiriments
-    avg_time = (end_time - start_time)/RUNS                                 // deviding by numver of runs to get avg
-    print_results(e_val, avg_time)                                          // printing the results
+    avg_time = (end_time - start_time)/RUNS;                                 // deviding by numver of runs to get avg
+    print_results(e_val, avg_time);                                          // printing the results
        
     return 0;
 }
