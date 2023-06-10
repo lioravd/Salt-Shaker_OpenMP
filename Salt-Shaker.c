@@ -51,8 +51,8 @@ int main(){
                         if(((double)(rand_r(&seed)))/(double)RAND_MAX<p)
                             passed++;    
 
-                #pragma omp critial                                          // atomicly calculating the following so we wont get a wrong input
-                    salt = salt_init - passed;                                         // claculating the number of salt grains that did not make it through to expiriment again
+ //               #pragma omp critial                                          // atomicly calculating the following so we wont get a wrong input
+                salt = SALT_INIT - passed;                                         // claculating the number of salt grains that did not make it through to expiriment again
             }
         }
         printf("p = %lf\n",p);
