@@ -61,8 +61,8 @@ int main(){
         }
 
         printf("p = %lf\n",p);
-        printf("evals run = %lf\n", passed/SALT_INIT);
-        e_vals[run] = passed/SALT_INIT;                                      // calculating the value of e^-1 for the current expiriment to later on avg
+        printf("evals run = %lf\n", salt/SALT_INIT);
+        e_vals[run] = salt/SALT_INIT;                                      // calculating the value of e^-1 for the current expiriment to later on avg
     }
 
     e_val = 1/calc_mean(e_vals, RUNS);                                      // avraging all results
