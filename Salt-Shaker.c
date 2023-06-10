@@ -27,6 +27,7 @@ void print_results(double print_val, double print_time){
     printf("The calculated average value of e is:        %lf\n", print_val);
     printf("The absolute value of e is:                  %lf, and the difference is: %lf \n", exp(1), abs(exp(1)-print_val));
     printf("The average execution time of the program:   %lf seconds\n\n", print_time);
+    printf("The total execution time of the program:   %lf seconds\n\n", print_time*RUNS);
 }
 
 int main(){
@@ -58,8 +59,8 @@ int main(){
 
         }
 
-        printf("p = %lf\n",p);
-        printf("evals run = %lf\n", salt/SALT_INIT);
+//        printf("p = %lf\n",p);
+//        printf("evals run = %lf\n", salt/SALT_INIT);
         e_vals[run] = salt/SALT_INIT;                                      // calculating the value of e^-1 for the current expiriment to later on avg
     }
 
