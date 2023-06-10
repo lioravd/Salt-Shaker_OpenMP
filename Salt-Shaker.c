@@ -54,6 +54,7 @@ int main(){
                     salt -= passed;                                         // claculating the number of salt grains that did not make it through to expiriment again
             }
         }
+        printf("evals run = %lf\n", passed/SALT_INIT)
         e_vals[run] = passed/SALT_INIT;                                      // calculating the value of e^-1 for the current expiriment to later on avg
     }
 
