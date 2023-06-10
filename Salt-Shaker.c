@@ -51,7 +51,8 @@ int main(){
                         if(((double)(rand_r(&seed)))/(double)RAND_MAX<p)
                                 passed++;
 
-                salt = SALT_INIT - passed;                                         // claculating the number of salt grains that did not make it through to expiriment again
+                #pragma omp barrier
+                    salt = SALT_INIT - passed;                                         // claculating the number of salt grains that did not make it through to expiriment again
 
             }
 
