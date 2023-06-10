@@ -47,7 +47,7 @@ int main(){
 
                 # pragma omp for                                            // OMP for loop
                     for(int grain=0; grain < salt; grain++)                 // claculating for each grain rather it passed or not
-                        if((double)rand_r(&seed)/RAND_MAX<p)                
+                        if(((double)(rand_r(&seed)%1000))/1000<p)
                             passed++;    
 
                 #pragma omp atomic                                          // atomicly calculating the following so we wont get a wrong input
