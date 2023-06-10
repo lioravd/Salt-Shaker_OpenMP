@@ -52,7 +52,10 @@ int main(){
                             passed++;    
 
                 #pragma omp atomic                                          // atomicly calculating the following so we wont get a wrong input
-                    salt = &SALT_INIT - passed;                                         // claculating the number of salt grains that did not make it through to expiriment again
+                {
+                    salt = SALT_INIT;
+                    salt -= passed;                                         // claculating the number of salt grains that did not make it through to expiriment again
+                }
             }
         }
         printf("p = %lf\n",p);
