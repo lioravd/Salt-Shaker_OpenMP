@@ -48,7 +48,7 @@ int main(){
 
                 # pragma omp for reduction(+:passed)                                           // OMP for loop
                     for(int grain=0; grain < salt; grain++)                 // claculating for each grain rather it passed or not
-                        if(((double)(rand_r(&seed)))/(double)RAND_MAX<p)
+                        if(((double)(rand_r(&seed)))%30000/30000<p)
                                 passed++;
 
                 #pragma omp barrier
